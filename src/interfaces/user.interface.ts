@@ -8,3 +8,10 @@ export interface AddUser {
     createdAt : Date   
 }
 
+export interface TokenData {
+    sub : string;
+    email :string;
+    role : Role;
+    iat : number;
+    exp : number;
+}

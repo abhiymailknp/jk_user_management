@@ -22,6 +22,20 @@ export class UsersService {
         return user;
     }
 
+    async findUserByUserId(userId : string){
+        const user = await this.UserRepo.findOne({
+            where:{
+                userId
+            }
+        })
+        return user;
+    }
+
+    async findAllUsers(){
+        const users = await this.UserRepo.find();
+        return users;
+    }
+
     async userSignUp (payload : SignUpDto ): Promise<AddUser>{
         const userEntity = this.UserRepo.create({...payload})
         const user : User= await this.UserRepo.save(userEntity);

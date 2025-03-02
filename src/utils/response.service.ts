@@ -7,7 +7,7 @@ export class ResponseService {
             return res.status(200).json({ success: true, data, message });
       }
 
-      sendBadRequest(res: Response, message: string = 'Internal Server Error'): object {
+      sendBadRequest(res: Response, message: string = 'Bad Request'): object {
             return res.status(400).json({ success: false, message });
       }
 

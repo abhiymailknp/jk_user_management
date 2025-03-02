@@ -4,6 +4,7 @@ import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { SignUpDto } from './dto/signup.dto';
 import { Role } from 'src/constants/constants';
+import { AddUser } from 'src/interfaces/user.interface';
 
 @Injectable()
 export class UsersService {
@@ -21,9 +22,15 @@ export class UsersService {
         return user;
     }
 
-    async userSignUp(payload : SignUpDto ){
-        const userEntity = await this.UserRepo.create({...payload})
-        const user = await this.UserRepo.save(userEntity);
-        return user;
+    async userSignUp (payload : SignUpDto ): Promise<AddUser>{
+        const userEntity = this.UserRepo.create({...payload})
+        const user : User= await this.UserRepo.save(userEntity);
+        return {
+            userId : user.userId,
+            fullName : user.fullName,
+            email : user.email,
+            role : user.role,
+            createdAt : user.createdAt
+        };
     }
 }

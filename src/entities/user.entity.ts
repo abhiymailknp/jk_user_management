@@ -15,10 +15,10 @@ export class User {
     email: string;
 
     @Column()
-    password: string;
+    password?: string;
 
     @Column()
-    salt: string;
+    salt?: string;
 
     @Column({
         type: 'enum',
@@ -34,12 +34,13 @@ export class User {
     async hashPassword() {
         const salt = this.salt = await genRandomString(10);
 		this.salt = salt;
-		this.password = await encryptHashPassword(this.password, salt);
+        if(this.password)
+		    this.password = await encryptHashPassword(this.password, salt);
     }
 
     @BeforeUpdate()
     async hashPasswordUpdate() {
-        if (this.password) {
+        if (this.password && this.salt) {
             this.password = await encryptHashPassword(this.password, this.salt);
         }
     }

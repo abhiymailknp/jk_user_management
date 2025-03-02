@@ -1,7 +1,10 @@
+import { Role } from "src/constants/constants";
+
 export interface AddUser {
- fullName : string;
- email :string;
- password ?: string;
- role ?: string;   
+    userId : string;
+    fullName : string;
+    email :string;
+    role ?: Role;
+    createdAt : Date   
 }
 
